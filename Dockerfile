@@ -31,7 +31,8 @@ RUN cd hibernate-orm \
     && git apply -v /tmp/HHH-4959.patch /tmp/HHH-11377.patch \
     && ./gradlew hibernate-core:build hibernate-infinispan:build $GRADLE_ARGS \
     && cp hibernate-core/target/libs/hibernate-core-*.jar $HIBERNATE_BASE/main/ \
-    && cp hibernate-infinispan/target/libs/hibernate-infinispan-*.jar $HIBERNATE_BASE/infinispan/main/ \    
+    && cp hibernate-infinispan/target/libs/hibernate-infinispan-*.jar $HIBERNATE_BASE/infinispan/main/ \
+    && cd .. \    
     && rm -rf /tmp/*.patch /root/.gradle hibernate-orm
 
 # Remove build tools
