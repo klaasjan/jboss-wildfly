@@ -3,3 +3,8 @@
 Docker image for WildFly project
 
 Based on https://github.com/jboss-dockerfiles/wildfly, but includes a few backported fixes to WildFly modules.
+
+## How to build
+```
+> docker build --squash .
+```
