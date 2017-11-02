@@ -1,6 +1,7 @@
 config {
 	daysToKeep = 21
-	cronTrigger = '@weekend'
+	cronTrigger = ''
+	upstreamProjectsTrigger = 'docker/jboss-base-jdk/jdk8'
 }
 
 node() {
