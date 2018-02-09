@@ -8,6 +8,17 @@ node() {
 	git.checkout { }
 
 	dockerfile.validate { }
+	dockerfile.validate {
+		dockerfile = 'Dockerfile.build'
+	}
+
+	def buildimg = dockerfile.build {
+		name = 'wildflybuild'
+		dockerfile = 'Dockerfiles.build'
+		args = '--tag wildflybuild'
+	}
+
+	# TODO
 
 	def img = dockerfile.build {
 		name = 'jboss/wildfly'
@@ -16,6 +27,6 @@ node() {
 
 	dockerfile.publish {
 		image = img
-		tags = [ "11.0.0.Final"]
+		tags = [ "11.0.0.Final.topicus1"]
 	}
 }
