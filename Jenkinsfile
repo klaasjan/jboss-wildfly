@@ -1,6 +1,7 @@
 config {
 	daysToKeep = 21
 	cronTrigger = ''
+	concurrentBuilds = false
 	upstreamProjectsTrigger = 'docker/jboss-base-jdk/jdk8'
 }
 
@@ -8,25 +9,27 @@ node() {
 	git.checkout { }
 
 	dockerfile.validate { }
-	dockerfile.validate {
-		dockerfile = 'Dockerfile.build'
-	}
 
-	def buildimg = dockerfile.build {
-		name = 'wildflybuild'
-		dockerfile = 'Dockerfile.build'
-		args = '--tag wildflybuild'
-	}
+	stage("Build") {
+		def buildImg = dockerfile.build {
+			stage = ""
+			name = 'jboss/wildfly-build-environment'
+			dockerfile = 'Dockerfile.build'
+		}
+	
+		buildImg.inside {
+			sh('sh build.sh')
+		}
+		
+		def img = dockerfile.build {
+			stage = ""
+			name = 'jboss/wildfly'
+			args = '--squash'
+		}
 
-	// TODO
-
-	def img = dockerfile.build {
-		name = 'jboss/wildfly'
-		args = '--squash'
-	}
-
-	dockerfile.publish {
-		image = img
-		tags = [ "11.0.0.Final.topicus1"]
+		dockerfile.publish {
+			image = img
+			tags = [ "11.0.0.Final.topicus1"]
+		}
 	}
 }

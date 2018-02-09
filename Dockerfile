@@ -7,14 +7,12 @@ USER root
 
 # Add the WildFly distribution to /opt, and make wildfly the owner of the extracted tar content
 # Make sure the distribution is available from a well-known place
-ADD ./target/wildfly.tar.gz /opt/jboss
-
+ADD ./wildfly/dist/target/wildfly.tar.gz /opt/jboss/wildfly
 WORKDIR /opt/jboss/wildfly/standalone
-RUN mkdir log && chown jboss:jboss log
-RUN mkdir data && chown jboss:jboss data
+RUN mkdir log data \
+  && chown jboss:jboss log data \
+  && chown -R jboss:jboss configuration deployments lib tmp
 # todo: user management + logging ergens anders?
-RUN chown jboss:jboss configuration
-RUN chown jboss:jboss tmp
 
 # Ensure signals are forwarded to the JVM process correctly for graceful shutdown
 ENV LAUNCH_JBOSS_IN_BACKGROUND true
