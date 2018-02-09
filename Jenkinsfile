@@ -14,7 +14,7 @@ node() {
 
 	def buildimg = dockerfile.build {
 		name = 'wildflybuild'
-		dockerfile = 'Dockerfiles.build'
+		dockerfile = 'Dockerfile.build'
 		args = '--tag wildflybuild'
 	}
 
