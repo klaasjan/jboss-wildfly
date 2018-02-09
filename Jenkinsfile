@@ -18,7 +18,7 @@ node() {
 		args = '--tag wildflybuild'
 	}
 
-	# TODO
+	// TODO
 
 	def img = dockerfile.build {
 		name = 'jboss/wildfly'
