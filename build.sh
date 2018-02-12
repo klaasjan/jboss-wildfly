@@ -2,10 +2,6 @@
 
 WILDFLY_VERSION="11.0.0.Final"
 
-#ENV WILDFLY_VERSION 11.0.0.Final
-#ENV WILDFLY_TOPICUS_VERSION $WILDFLY_VERSION.topicus1
-
-
 # Patch and build a fresh Wildfly 11
 rm -rf wildfly
 git clone --branch $WILDFLY_VERSION --depth 1 -c advice.detachedHead=false https://github.com/wildfly/wildfly.git
@@ -28,4 +24,9 @@ cd ..
 
 # Create dist archive
 cd wildfly/dist/target/wildfly-$WILDFLY_VERSION
+
+# patch jandex
+wget -P modules/system/layers/base/org/jboss/jandex/main/ http://repo1.maven.org/maven2/org/jboss/jandex/2.0.4.Final/jandex-2.0.4.Final.jar
+sed -i 's/2.0.3/2.0.4/g' modules/system/layers/base/org/jboss/jandex/main/module.xml
+
 tar -czf ../wildfly.tar.gz .
