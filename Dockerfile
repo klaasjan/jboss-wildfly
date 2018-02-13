@@ -10,8 +10,7 @@ USER root
 ADD ./wildfly/dist/target/wildfly.tar.gz /opt/jboss/wildfly
 WORKDIR /opt/jboss/wildfly/standalone
 RUN mkdir log data \
-  && chown jboss:jboss log data \
-  && chown -R jboss:jboss configuration deployments lib tmp
+  && chown -R jboss:jboss ${JBOSS_HOME}
 # todo: user management + logging ergens anders?
 
 # Ensure signals are forwarded to the JVM process correctly for graceful shutdown
