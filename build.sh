@@ -6,6 +6,10 @@ WILDFLY_VERSION="11.0.0.Final"
 rm -rf wildfly
 git clone --branch $WILDFLY_VERSION --depth 1 -c advice.detachedHead=false https://github.com/wildfly/wildfly.git
 cd wildfly
+
+# fix voor JGRP-2236
+sed -i 's/jgroups>3.6.13.Final/jgroups>3.6.15.Final/g' pom.xml
+
 git apply -v ../WFLY-9488.patch
 ./build.sh --batch-mode -Dmaven.repo.local=../.repository -DskipTests
 cd ..
