@@ -10,6 +10,7 @@ cd wildfly
 # fix voor JGRP-2236
 sed -i 's/jgroups>3.6.13.Final/jgroups>3.6.15.Final/g' pom.xml
 
+git apply -v ../WFLY-9474.patch
 git apply -v ../WFLY-9488.patch
 ./build.sh --batch-mode -Dmaven.repo.local=../.repository -DskipTests
 cd ..
