@@ -29,7 +29,7 @@ node() {
 
 		dockerfile.publish {
 			image = img
-			tags = [ "11.0.0.Final"]
+			tags = [ "12.0.0.Final"]
 		}
 	}
 }
